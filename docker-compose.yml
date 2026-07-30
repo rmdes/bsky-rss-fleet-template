@@ -1,0 +1,17 @@
+services:
+  bsky-rss-fleet:
+    restart: unless-stopped
+    image: ghcr.io/rmdes/bsky.rss:latest
+    container_name: bsky-rss-fleet
+    command: ["yarn", "fleet"]
+    stop_grace_period: 45s
+    environment:
+      - DRY_RUN=false
+      - FLEET_CONFIG_ROOT=/build/config
+      - FLEET_SECRETS_PATH=/build/secrets/bsky-fleet.json
+      - FLEET_DATA_ROOT=/build/data/fleet
+      - FLEET_LOCK_PATH=/build/data/fleet/fleet.pid
+    volumes:
+      - ./config:/build/config:ro
+      - ./secrets:/build/secrets:ro
+      - ./data:/build/data
