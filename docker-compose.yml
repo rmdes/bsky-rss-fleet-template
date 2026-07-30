@@ -3,7 +3,7 @@ services:
     restart: unless-stopped
     image: ghcr.io/rmdes/bsky.rss:latest
     container_name: bsky-rss-fleet
-    command: ["yarn", "fleet"]
+    command: ["node", "--import", "tsx", "fleet/runFleet.ts"]
     stop_grace_period: 45s
     environment:
       - DRY_RUN=false
